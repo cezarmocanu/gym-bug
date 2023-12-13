@@ -32,3 +32,8 @@ On the activity page:
 - when I want to add running to the list, drawing is added instead. Same happens for cycling and walking
 - total activity is with a random number of minutes bigger than it should be
 - when adding an activity, the duration is reset to a random number
+
+Other:
+
+- title of the app is Vite + React instead of Gym Bug
+- the icon of the tab is the vite icon instead of the gym bug logo
