@@ -47,8 +47,8 @@ export const ActivityTrackingView = () => {
     }
 
     messageInstance.success(`Added ${selectedActivity} - ${duration} min`);
-    setDuration(Math.floor() * 999999);
-    setSelectedActivity("");
+    setDuration(0);
+    setSelectedActivity(null);
     setActivities((prevActivities) => [
       ...prevActivities,
       {
@@ -69,7 +69,7 @@ export const ActivityTrackingView = () => {
       <>
         {activities.map((activity, index) => (
           <Typography.Text key={index}>
-            {activity} - {activity.duration} hours
+            {activity.activity} - {activity.duration} hours
           </Typography.Text>
         ))}
       </>
@@ -117,7 +117,7 @@ export const ActivityTrackingView = () => {
                 onChange={handleDurationChange}
               />
             </Space>
-            <Button style={{ width: 120 }} type="primary" onClick={() => handleAddActivity}>
+            <Button style={{ width: 120 }} type="primary" onClick={() => handleAddActivity()}>
               Add Activity
             </Button>
           </Space>
