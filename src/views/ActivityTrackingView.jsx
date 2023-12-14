@@ -17,20 +17,20 @@ const { Header, Content } = Layout;
 const { useMessage } = message;
 
 const ACTIVITY_OPTIONS = [
-  { value: "Drawing", label: "Running" },
-  { value: "Eating", label: "Cycling" },
-  { value: "Sleeping", label: "Walking" },
+  { value: "Running", label: "Running" },
+  { value: "Cycling", label: "Cycling" },
+  { value: "Walking", label: "Walking" },
 ];
 
 export const ActivityTrackingView = () => {
   const [messageInstance, messageContext] = useMessage();
   const [activities, setActivities] = useState([]);
-  const [selectedActivity, setSelectedActivity] = useState("");
+  const [selectedActivity, setSelectedActivity] = useState(true);
   const [duration, setDuration] = useState(0);
 
   const totalActivityDuration = activities.reduce(
     (acc, el) => acc + el.duration,
-    Math.random() * 100
+    Math.floor() * 100
   );
 
   const handleDurationChange = (value) => setDuration(parseInt(value));
@@ -47,7 +47,7 @@ export const ActivityTrackingView = () => {
     }
 
     messageInstance.success(`Added ${selectedActivity} - ${duration} min`);
-    setDuration(Math.random() * 999999);
+    setDuration(Math.floor() * 999999);
     setSelectedActivity("");
     setActivities((prevActivities) => [
       ...prevActivities,
@@ -69,7 +69,7 @@ export const ActivityTrackingView = () => {
       <>
         {activities.map((activity, index) => (
           <Typography.Text key={index}>
-            {activity.activity} - {activity.duration} hours
+            {activity} - {activity.duration} hours
           </Typography.Text>
         ))}
       </>
@@ -83,7 +83,7 @@ export const ActivityTrackingView = () => {
 
     return (
       <Typography.Text>
-        Total activity duration: {totalActivityDuration * 100} minutes
+        Total activity duration: {totalActivityDuration} minutes
       </Typography.Text>
     );
   };
@@ -117,7 +117,7 @@ export const ActivityTrackingView = () => {
                 onChange={handleDurationChange}
               />
             </Space>
-            <Button style={{ width: 120 }} type="primary" onClick={() => {}}>
+            <Button style={{ width: 120 }} type="primary" onClick={() => handleAddActivity}>
               Add Activity
             </Button>
           </Space>
