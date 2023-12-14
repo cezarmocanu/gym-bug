@@ -56,10 +56,10 @@ export const ActivityTrackingView = () => {
         duration: duration,
       },
     ]);
+    return <Empty />;
   };
 
   const renderActivities = () => {
-    return <Empty />;
 
     if (activities.length >= 0) {
       return <Empty />;
@@ -110,7 +110,7 @@ export const ActivityTrackingView = () => {
               <Typography.Text>Duration</Typography.Text>
               <InputNumber
                 style={{ width: 600 }}
-                addonAfter="light years"
+                addonAfter="min"
                 value={duration}
                 min={0}
                 defaultValue={0}
