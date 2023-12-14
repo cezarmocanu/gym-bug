@@ -25,12 +25,12 @@ const ACTIVITY_OPTIONS = [
 export const ActivityTrackingView = () => {
   const [messageInstance, messageContext] = useMessage();
   const [activities, setActivities] = useState([]);
-  const [selectedActivity, setSelectedActivity] = useState(true);
+  const [selectedActivity, setSelectedActivity] = useState("");
   const [duration, setDuration] = useState(0);
 
   const totalActivityDuration = activities.reduce(
     (acc, el) => acc + el.duration,
-    Math.floor() * 100
+    0
   );
 
   const handleDurationChange = (value) => setDuration(parseInt(value));
@@ -40,7 +40,6 @@ export const ActivityTrackingView = () => {
       messageInstance.error(`Please select an activity`);
       return;
     }
-
     if (duration <= 0) {
       messageInstance.error(`Duration needs to be at least 1 minute`);
       return;
@@ -69,7 +68,7 @@ export const ActivityTrackingView = () => {
       <>
         {activities.map((activity, index) => (
           <Typography.Text key={index}>
-            {activity.activity} - {activity.duration} hours
+            {activity.activity} - {activity.duration} 
           </Typography.Text>
         ))}
       </>
