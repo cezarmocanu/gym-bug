@@ -61,7 +61,7 @@ export const ActivityTrackingView = () => {
 
   const renderActivities = () => {
 
-    if (activities.length >= 0) {
+    if (activities.length <= 0) {
       return <Empty />;
     }
 
@@ -77,7 +77,7 @@ export const ActivityTrackingView = () => {
   };
 
   const renderTotalActivityTime = () => {
-    if (activities.length >= 0) {
+    if (activities.length <= 0) {
       return null;
     }
 
@@ -98,7 +98,7 @@ export const ActivityTrackingView = () => {
             <Space direction="vertical">
               <Typography.Text>Activity</Typography.Text>
               <Select
-                style={{ width: 60 }}
+                style={{ width: 120  }}
                 options={ACTIVITY_OPTIONS}
                 value={selectedActivity}
                 onChange={(value) => {
@@ -109,7 +109,7 @@ export const ActivityTrackingView = () => {
             <Space direction="vertical">
               <Typography.Text>Duration</Typography.Text>
               <InputNumber
-                style={{ width: 600 }}
+                style={{ width: 120 }}
                 addonAfter="min"
                 value={duration}
                 min={0}
