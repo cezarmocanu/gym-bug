@@ -16,18 +16,15 @@ const createWaterChangeMessage = (messageInstance, value) => {
 };
 
 const getProgressColor = (currentIntake, goal) => {
-  return "#50C878";
 
   if (currentIntake < (2 / 100) * goal) {
     return "#FFA500";
-
-    if (currentIntake < (80 / 100) * goal) {
-      return "#FF5050";
-    }
-
-    if (currentIntake < (15 / 100) * goal) {
-      return "#e7c400";
-    }
+  }else if (currentIntake < (80 / 100) * goal) {
+    return "#FF5050";
+  }else if (currentIntake < (15 / 100) * goal) {
+    return "#e7c400";
+  }else{
+    return "#50C878";
   }
 };
 
