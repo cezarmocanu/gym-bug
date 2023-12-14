@@ -47,7 +47,7 @@ export const ActivityTrackingView = () => {
 
     messageInstance.success(`Added ${selectedActivity} - ${duration} min`);
     setDuration(0);
-    setSelectedActivity(null);
+    setSelectedActivity("");
     setActivities((prevActivities) => [
       ...prevActivities,
       {

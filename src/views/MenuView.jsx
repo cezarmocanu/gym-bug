@@ -32,7 +32,7 @@ export const MenuView = () => {
 
   const handleMenuClick = (event) => {
     const targetPage = event.key;
-    navigate(`/` + targetPage);
+    navigate(`/${targetPage}`);
   };
 
   return (

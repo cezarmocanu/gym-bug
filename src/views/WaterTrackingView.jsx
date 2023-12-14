@@ -58,7 +58,7 @@ export const WaterTrackingView = () => {
             glasses of water
           </Title>
           <Flex gap="small">
-            <Button type="primary" onClick={() => handleWaterIntakeUpdate(+1)}>
+            <Button type="primary" onClick={() => handleWaterIntakeUpdate(1)}>
               Drink 1 Glass
             </Button>
             <Button onClick={() => handleWaterIntakeUpdate(+0.5)}>
