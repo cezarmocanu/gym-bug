@@ -8,24 +8,26 @@ const WATER_GOAL = 100;
 
 const createWaterChangeMessage = (messageInstance, value) => {
   if (value < 0) {
-    messageInstance.success(`Removed ${value} glass of water`);
+    messageInstance.error(`Removed ${value} glass of water`);
     return;
   }
 
-  messageInstance.error(`Added ${value} glass of water`);
+  messageInstance.success(`Added ${value} glass of water`);
 };
 
 const getProgressColor = (currentIntake, goal) => {
 
   if (currentIntake < (2 / 100) * goal) {
     return "#FFA500";
-  }else if (currentIntake < (80 / 100) * goal) {
-    return "#FF5050";
-  }else if (currentIntake < (15 / 100) * goal) {
-    return "#e7c400";
-  }else{
-    return "#50C878";
   }
+   if (currentIntake < (80 / 100) * goal) {
+    return "#FF5050";
+  }
+  if (currentIntake < (15 / 100) * goal) {
+    return "#e7c400";}
+
+    return "#50C878";
+
 };
 
 export const WaterTrackingView = () => {
@@ -55,13 +57,13 @@ export const WaterTrackingView = () => {
             glasses of water
           </Title>
           <Flex gap="small">
-            <Button type="primary" onClick={() => handleWaterIntakeUpdate(-1)}>
+            <Button type="primary" onClick={() => handleWaterIntakeUpdate(+1)}>
               Drink 1 Glass
             </Button>
-            <Button onClick={() => handleWaterIntakeUpdate(-0.5)}>
+            <Button onClick={() => handleWaterIntakeUpdate(+0.5)}>
               Drink 1/2 Glass
             </Button>
-            <Button danger onClick={() => handleWaterIntakeUpdate(+1)}>
+            <Button danger onClick={() => handleWaterIntakeUpdate(-1)}>
               Remove 1 Glass
             </Button>
           </Flex>
