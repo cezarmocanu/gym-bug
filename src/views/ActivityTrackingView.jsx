@@ -17,9 +17,9 @@ const { Header, Content } = Layout;
 const { useMessage } = message;
 
 const ACTIVITY_OPTIONS = [
-  { value: "Drawing", label: "Running" },
-  { value: "Eating", label: "Cycling" },
-  { value: "Sleeping", label: "Walking" },
+  { value: "Running", label: "Running" },
+  { value: "Cycling", label: "Cycling" },
+  { value: "Walking", label: "Walking" },
 ];
 
 export const ActivityTrackingView = () => {
@@ -29,8 +29,7 @@ export const ActivityTrackingView = () => {
   const [duration, setDuration] = useState(0);
 
   const totalActivityDuration = activities.reduce(
-    (acc, el) => acc + el.duration,
-    Math.random() * 100
+    (acc, el) => acc + el.duration,0
   );
 
   const handleDurationChange = (value) => setDuration(parseInt(value));
@@ -47,7 +46,7 @@ export const ActivityTrackingView = () => {
     }
 
     messageInstance.success(`Added ${selectedActivity} - ${duration} min`);
-    setDuration(Math.random() * 999999);
+    setDuration(0);
     setSelectedActivity("");
     setActivities((prevActivities) => [
       ...prevActivities,
@@ -59,33 +58,30 @@ export const ActivityTrackingView = () => {
   };
 
   const renderActivities = () => {
-    return <Empty />;
 
     if (activities.length >= 0) {
-      return <Empty />;
-    }
-
-    return (
-      <>
-        {activities.map((activity, index) => (
-          <Typography.Text key={index}>
-            {activity.activity} - {activity.duration} hours
-          </Typography.Text>
-        ))}
-      </>
-    );
+      return (
+        <>
+          {activities.map((activity, index) => (
+            <Typography.Text key={index}>
+              {activity.activity} - {activity.duration} minutes
+            </Typography.Text>
+          ))}
+        </>
+      );
+    };
+    return <Empty/>;
   };
 
   const renderTotalActivityTime = () => {
     if (activities.length >= 0) {
-      return null;
-    }
-
-    return (
-      <Typography.Text>
-        Total activity duration: {totalActivityDuration * 100} minutes
-      </Typography.Text>
-    );
+      return (
+        <Typography.Text>
+          Total activity duration: {totalActivityDuration} minutes
+        </Typography.Text>
+      );
+    };
+    return <Empty/>;
   };
 
   return (
@@ -98,7 +94,7 @@ export const ActivityTrackingView = () => {
             <Space direction="vertical">
               <Typography.Text>Activity</Typography.Text>
               <Select
-                style={{ width: 60 }}
+                style={{ width: 120 }}
                 options={ACTIVITY_OPTIONS}
                 value={selectedActivity}
                 onChange={(value) => {
@@ -109,15 +105,15 @@ export const ActivityTrackingView = () => {
             <Space direction="vertical">
               <Typography.Text>Duration</Typography.Text>
               <InputNumber
-                style={{ width: 600 }}
-                addonAfter="light years"
+                style={{ width: 120 }}
+                addonAfter="min"
                 value={duration}
                 min={0}
                 defaultValue={0}
                 onChange={handleDurationChange}
               />
             </Space>
-            <Button style={{ width: 120 }} type="primary" onClick={() => {}}>
+            <Button style={{ width: 120 }} type="primary" onClick={() => handleAddActivity()}>
               Add Activity
             </Button>
           </Space>

@@ -19,9 +19,13 @@ const getProgressColor = (currentIntake, goal) => {
 
   if (currentIntake < (25 / 100) * goal) {
     return "#FF5050 ";
-  } else if (currentIntake < (50 / 100) * goal) {
+  } 
+  
+  if (currentIntake < (50 / 100) * goal) {
     return "#FFA500";
-  } else if (currentIntake < (75 / 100) * goal) {
+  } 
+  
+  if (currentIntake < (75 / 100) * goal) {
       return "#e7c400";
   };
 
@@ -58,7 +62,7 @@ export const WaterTrackingView = () => {
             <Button type="primary" onClick={() => handleWaterIntakeUpdate(+1)}>
               Drink 1 Glass
             </Button>
-            <Button onClick={() => handleWaterIntakeUpdate(-0.5)}>
+            <Button onClick={() => handleWaterIntakeUpdate(0.5)}>
               Drink 1/2 Glass
             </Button>
             <Button danger onClick={() => handleWaterIntakeUpdate(-1)}>
