@@ -4,7 +4,7 @@ import Title from "antd/es/typography/Title";
 const { Header, Content } = Layout;
 const { useMessage } = message;
 
-const WATER_GOAL = 100;
+const WATER_GOAL = 8;
 
 const createWaterChangeMessage = (messageInstance, value) => {
   if (value < 0) {
