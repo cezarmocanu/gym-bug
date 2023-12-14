@@ -53,7 +53,7 @@ export const WaterTrackingView = () => {
             <span
               style={{ color: getProgressColor(currentIntake, WATER_GOAL) }}
             >
-              {WATER_GOAL} / {currentIntake} / {WATER_GOAL}
+              {currentIntake} / {WATER_GOAL}
             </span>{" "}
             glasses of water
           </Title>
