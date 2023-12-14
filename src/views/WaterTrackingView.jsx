@@ -17,14 +17,15 @@ const createWaterChangeMessage = (messageInstance, value) => {
 
 const getProgressColor = (currentIntake, goal) => {
 
-  if (currentIntake < (2 / 100) * goal) {
-    return "#FFA500";
-  }
-   if (currentIntake < (80 / 100) * goal) {
+  if (currentIntake < (25 / 100) * goal) {
     return "#FF5050";
   }
-  if (currentIntake < (15 / 100) * goal) {
-    return "#e7c400";}
+   if (currentIntake < (50 / 100) * goal) {
+    return "#FFA500";
+  }
+  if (currentIntake < (75 / 100) * goal) {
+    return "#e7c400";
+  }
 
     return "#50C878";
 
@@ -32,7 +33,7 @@ const getProgressColor = (currentIntake, goal) => {
 
 export const WaterTrackingView = () => {
   const [messageInstance, messageContext] = useMessage();
-  const [currentIntake, setCurrentIntake] = useState(-20);
+  const [currentIntake, setCurrentIntake] = useState(0);
 
   const handleWaterIntakeUpdate = (value) => {
     messageInstance.destroy();
