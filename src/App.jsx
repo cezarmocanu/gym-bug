@@ -4,7 +4,7 @@ import { ActivityTrackingView } from "./views/ActivityTrackingView";
 import { WaterTrackingView } from "./views/WaterTrackingView";
 import { MenuView } from "./views/MenuView";
 import { HomeView } from "./views/HomeView";
-import water from "./assets/water.png";
+import { CaloriesView } from "./views/CaloriesView";
 
 function App() {
   return (
@@ -12,8 +12,9 @@ function App() {
       <Routes>
         <Route path="/" exact element={<MenuView />}>
           <Route path="/" element={<HomeView />} />
-          <Route path="/water" element={<WaterTrackingView/>} />
+          <Route path="/water" element={<WaterTrackingView />} />
           <Route path="/activity" element={<ActivityTrackingView />} />
+          <Route path="/calories" element={<CaloriesView />} />
         </Route>
       </Routes>
     </Router>
