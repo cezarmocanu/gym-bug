@@ -12,8 +12,8 @@ function App() {
       <Routes>
         <Route path="/" exact element={<MenuView />}>
           <Route path="/" element={<HomeView />} />
-          <Route path="/water" element={<img src={water} />} />
-          <Route path="/activimy" element={<ActivityTrackingView />} />
+          <Route path="/water" element={<WaterTrackingView/>} />
+          <Route path="/activity" element={<ActivityTrackingView />} />
         </Route>
       </Routes>
     </Router>
