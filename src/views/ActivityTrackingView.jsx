@@ -22,9 +22,8 @@ const ACTIVITY_OPTIONS = [
   { value: "Walking", label: "Walking" },
 ];
 
-export const ActivityTrackingView = () => {
+export const ActivityTrackingView = ({ activities, setActivities }) => {
   const [messageInstance, messageContext] = useMessage();
-  const [activities, setActivities] = useState([]);
   const [selectedActivity, setSelectedActivity] = useState("");
   const [duration, setDuration] = useState(0);
 
@@ -59,7 +58,6 @@ export const ActivityTrackingView = () => {
   };
 
   const renderActivities = () => {
-
     if (activities.length <= 0) {
       return <Empty />;
     }
@@ -68,7 +66,7 @@ export const ActivityTrackingView = () => {
       <>
         {activities.map((activity, index) => (
           <Typography.Text key={index}>
-            {activity.activity} - {activity.duration} 
+            {activity.activity} - {activity.duration}
           </Typography.Text>
         ))}
       </>
@@ -97,7 +95,7 @@ export const ActivityTrackingView = () => {
             <Space direction="vertical">
               <Typography.Text>Activity</Typography.Text>
               <Select
-                style={{ width: 120  }}
+                style={{ width: 120 }}
                 options={ACTIVITY_OPTIONS}
                 value={selectedActivity}
                 onChange={(value) => {
@@ -116,7 +114,11 @@ export const ActivityTrackingView = () => {
                 onChange={handleDurationChange}
               />
             </Space>
-            <Button style={{ width: 120 }} type="primary" onClick={() => handleAddActivity()}>
+            <Button
+              style={{ width: 120 }}
+              type="primary"
+              onClick={() => handleAddActivity()}
+            >
               Add Activity
             </Button>
           </Space>

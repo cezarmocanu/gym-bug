@@ -26,11 +26,11 @@ https://api-ninjas.com/api/nutrition
 
 ### Water tracking page:
 
-- No bugs
+0. screen now requires a circle progress similar to the one in calories view. This will show how much water the user drank of of target water
 
 ### Activity tracking page:
 
-- No bugs
+0. screen now requires a circle progress similar to the one in calories view. This will show how many minutes did the user exercise. This will also implement a minimum 30 minutes per day of sport as target.
 
 ### Calories tracking page:
 
