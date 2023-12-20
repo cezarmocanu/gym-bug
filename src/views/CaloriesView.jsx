@@ -18,7 +18,7 @@ import {
 } from "antd";
 import { MinusOutlined, PlusOutlined, SearchOutlined } from "@ant-design/icons";
 const { Header, Content } = Layout;
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 const { useMessage } = message;
 
 const dateFormat = Intl.DateTimeFormat("ro-RO", {
@@ -37,7 +37,7 @@ export const CaloriesView = () => {
   const [foods, setFoods] = useState([]);
   const [loggedFoods, setLoggedFoods] = useState([
     {
-      uuid: uuidv4(),
+      // uuid: uuidv4(),
       calories: 122,
       name: "asda",
       date: new Date(1702762723036),
