@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { message, Button, Flex, Layout, Space } from "antd";
 import Title from "antd/es/typography/Title";
+import {
+  Progress,
+  Tooltip,
+} from "antd";
 const { Header, Content } = Layout;
 const { useMessage } = message;
 
@@ -39,13 +43,28 @@ export const WaterTrackingView = ({ currentIntake, setCurrentIntake }) => {
     setCurrentIntake(currentIntake + value);
   };
 
+  const percentage = WATER_GOAL * 0 + 75;
+
+  const formatPercentage = () => {
+    return (
+      <Space align="center" justify="center" direction="vertical">
+        <Title level={2} style={{ margin: 0 }}>
+          {currentIntake}
+        </Title>
+        <Title level={5} style={{ margin: 0, fontWeight: 300 }}>
+          out of {WATER_GOAL} glasses of water
+        </Title>
+      </Space>
+    );
+  };
+
   return (
     <Layout style={{ height: "100vh", overflow: "auto" }}>
       {messageContext}
       <Header style={{ color: "white" }}>Water Tracking</Header>
+      <Space direction="vertical" style={{ padding: 16 }}></Space>
       <Content style={{ display: "flex", flexDirection: "column" }}>
-        <Space direction="vertical" style={{ padding: 16 }}>
-          <Title level={1}>
+      <Title level={1}>
             Today I drank{" "}
             <span
               style={{ color: getProgressColor(currentIntake, WATER_GOAL) }}
@@ -64,9 +83,22 @@ export const WaterTrackingView = ({ currentIntake, setCurrentIntake }) => {
             <Button danger onClick={() => handleWaterIntakeUpdate(-1)}>
               Remove 1 Glass
             </Button>
-          </Flex>
-          <p>Remember to stay hydrated!</p>
-        </Space>
+            <Tooltip title="Glasses of water logged today">
+              <Progress
+              status="active"
+              type="circle"
+              format={formatPercentage}
+              percent={percentage}
+              size={160}
+              strokeColor={{
+                "0%": "#ffe58f",
+                "50%": "#ff5343",
+                "100%": "#87d068"
+              }}/>
+            </Tooltip>
+            </Flex>
+            <p>Remember to stay hydrated!</p>
+          <Space/>
       </Content>
     </Layout>
   );
