@@ -11,6 +11,9 @@ import {
   Row,
   Col,
   Card,
+  Tooltip,
+  Flex,
+  Progress,
 } from "antd";
 import Title from "antd/es/typography/Title";
 const { Header, Content } = Layout;
@@ -21,6 +24,8 @@ const ACTIVITY_OPTIONS = [
   { value: "Cycling", label: "Cycling" },
   { value: "Walking", label: "Walking" },
 ];
+
+const ACTIVITY_GOAL = 30;
 
 export const ActivityTrackingView = ({ activities, setActivities }) => {
   const [messageInstance, messageContext] = useMessage();
@@ -85,55 +90,92 @@ export const ActivityTrackingView = ({ activities, setActivities }) => {
     );
   };
 
+  const percentage = ACTIVITY_GOAL * 0 + 75;
+
+  const formatPercentage = () => {
+    return (
+      <Space align="center" justify="center" direction="vertical">
+        <Title level={2} style={{ margin: 0 }}>
+          {totalActivityDuration}
+        </Title>
+        <Title level={5} style={{ margin: 0, fontWeight: 300 }}>
+          out of {ACTIVITY_GOAL} minutes
+        </Title>
+      </Space>
+    );
+  };
+
   return (
     <Layout style={{ height: "100vh", overflow: "auto" }}>
       {messageContext}
       <Header style={{ color: "white" }}>Activity Tracking</Header>
       <Content style={{ display: "flex", flexDirection: "column" }}>
-        <Space direction="vertical" style={{ padding: 16 }}>
-          <Space align="end">
-            <Space direction="vertical">
-              <Typography.Text>Activity</Typography.Text>
-              <Select
+      <Row gutter={20}>
+          <Col span={25}>
+
+          <Space direction="vertical" style={{ padding: 16 }}>
+            <Space align="end">
+              <Space direction="vertical">
+                <Typography.Text>Activity</Typography.Text>
+                <Select
+                  style={{ width: 120 }}
+                  options={ACTIVITY_OPTIONS}
+                  value={selectedActivity}
+                  onChange={(value) => {
+                    setSelectedActivity(value);
+                  }}
+                />
+              </Space>
+              <Space direction="vertical">
+                <Typography.Text>Duration</Typography.Text>
+                <InputNumber
+                  style={{ width: 120 }}
+                  addonAfter="min"
+                  value={duration}
+                  min={0}
+                  defaultValue={0}
+                  onChange={handleDurationChange}
+                />
+              </Space>
+              <Button
                 style={{ width: 120 }}
-                options={ACTIVITY_OPTIONS}
-                value={selectedActivity}
-                onChange={(value) => {
-                  setSelectedActivity(value);
-                }}
-              />
+                type="primary"
+                onClick={() => handleAddActivity()}
+              >
+                Add Activity
+              </Button>
             </Space>
-            <Space direction="vertical">
-              <Typography.Text>Duration</Typography.Text>
-              <InputNumber
-                style={{ width: 120 }}
-                addonAfter="min"
-                value={duration}
-                min={0}
-                defaultValue={0}
-                onChange={handleDurationChange}
-              />
-            </Space>
-            <Button
-              style={{ width: 120 }}
-              type="primary"
-              onClick={() => handleAddActivity()}
-            >
-              Add Activity
-            </Button>
+            <Title level={4}>Logged Activities</Title>
+            <Row gutter={16}>
+              <Col span={24}>
+                <Card title="Logged activities">
+                  <Space direction="vertical" style={{ width: "100%" }}>
+                    {renderTotalActivityTime()}
+                    {renderActivities()}
+                  </Space>
+                  <Flex gap="sm" justify="end">
+                  <Tooltip title="Activities logged today">
+                    <Progress
+                      status="active"
+                      type="circle"
+                      format={formatPercentage}
+                      percent={percentage}
+                      size={160}
+                      strokeColor={{
+                        "0%": "#ffe58f",
+                        "50%": "#ff5343",
+                        "100%": "#87d068",
+                      }}
+                    />
+                  </Tooltip>
+                  </Flex>
+                </Card>
+              </Col>
+            </Row>
           </Space>
-          <Title level={4}>Logged Activities</Title>
-          <Row gutter={16}>
-            <Col span={24}>
-              <Card title="Logged activities">
-                <Space direction="vertical" style={{ width: "100%" }}>
-                  {renderTotalActivityTime()}
-                  {renderActivities()}
-                </Space>
-              </Card>
-            </Col>
-          </Row>
-        </Space>
+          </Col>
+      </Row>
+
       </Content>
     </Layout>
   );
