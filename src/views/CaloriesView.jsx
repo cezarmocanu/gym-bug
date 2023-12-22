@@ -32,7 +32,7 @@ export const CaloriesView = () => {
   const [messageInstance, messageContext] = useMessage();
   const [foodInputValue, setFoodInputValue] = useState("");
   const [lastSearchedFood, setLastSearchedFood] = useState("");
-  const [isFoodLoading, setIsFoodLoading] = useState(true);
+  const [isFoodLoading, setIsFoodLoading] = useState(false);
 
   const [foods, setFoods] = useState([]);
   const [loggedFoods, setLoggedFoods] = useState([
@@ -51,16 +51,9 @@ export const CaloriesView = () => {
 
   const percentage = CALORIES_TARGET * 0 + 75;
 
-  const styleContainer = {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100vh",
-  };
-
   const formatPercentage = () => {
     return (
-      <div style={styleContainer}>
+      <div>
       <Space align="center" justify="center" direction="vertical">
         <Typography.Title level={2} style={{ margin: 0 }}>
           {currentCalories}
@@ -154,14 +147,14 @@ export const CaloriesView = () => {
     }
 
     return (
-      <Button
+     <Button
         type="primary"
         shape="circle"
         size="small"
         icon={<SearchOutlined />}
         onClick={handleSearchButtonClick}
         disabled={lastSearchedFood === foodInputValue}
-      />
+      /> 
     );
   };
 
@@ -171,7 +164,7 @@ export const CaloriesView = () => {
     }
 
     return foods.map((food) => (
-      <>
+      <div key={food.uuid}>
         <Flex key={food.uuid} justify="space-between" align="center">
           <Flex gap="sm" vertical>
             <Typography.Title level={5} style={{ margin: 0, fontWeight: 500 }}>
@@ -193,14 +186,14 @@ export const CaloriesView = () => {
           />
         </Flex>
         <Divider style={{ margin: 0 }} />
-      </>
+      </div>
     ));
   };
 
   const renderLoggedFoods = () => {
     //<Empty description={"No logged foods"} />;
-    return loggedFoods?.map((food) => (
-      <>
+    return loggedFoods.map((food) => (
+      <div key={food.uuid}>
         <Flex key={food.uuid} justify="space-between" align="end">
           <Flex gap="sm" vertical>
             <Typography.Title level={5} style={{ margin: 0, fontWeight: 500 }}>
@@ -227,7 +220,7 @@ export const CaloriesView = () => {
           </Flex>
         </Flex>
         <Divider style={{ margin: 0 }} />
-      </>
+      </div>
     ));
   };
 
