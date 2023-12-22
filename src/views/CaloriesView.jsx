@@ -51,8 +51,16 @@ export const CaloriesView = () => {
 
   const percentage = CALORIES_TARGET * 0 + 75;
 
+  const styleContainer = {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100vh",
+  };
+
   const formatPercentage = () => {
     return (
+      <div style={styleContainer}>
       <Space align="center" justify="center" direction="vertical">
         <Typography.Title level={2} style={{ margin: 0 }}>
           {currentCalories}
@@ -61,6 +69,7 @@ export const CaloriesView = () => {
           out of {CALORIES_TARGET} joules
         </Typography.Title>
       </Space>
+      </div>
     );
   };
 
@@ -189,8 +198,7 @@ export const CaloriesView = () => {
   };
 
   const renderLoggedFoods = () => {
-    return <Empty description={"No logged foods"} />;
-
+    //<Empty description={"No logged foods"} />;
     return loggedFoods?.map((food) => (
       <>
         <Flex key={food.uuid} justify="space-between" align="end">
@@ -234,7 +242,7 @@ export const CaloriesView = () => {
           <Col span={10}>
             <Card title="Food log" style={{ minHeight: 140 }}>
               <Flex gap="sm" justify="end">
-                <Tooltip title="Joules logged today">
+                <Tooltip title="Joules logged today" style={styleContainer}>
                   <Progress
                     status="active"
                     type="circle"
@@ -246,6 +254,7 @@ export const CaloriesView = () => {
                       "50%": "#ff5343",
                       "100%": "#87d068",
                     }}
+                    style={{ margin: "auto" }}
                   />
                 </Tooltip>
               </Flex>
