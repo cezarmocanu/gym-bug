@@ -166,6 +166,7 @@ export const ActivityTrackingView = ({ activities, setActivities }) => {
                         "50%": "#ff5343",
                         "100%": "#87d068",
                       }}
+                      style={{ margin: "auto" }}
                     />
                   </Tooltip>
                   </Flex>

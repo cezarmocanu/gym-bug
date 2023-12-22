@@ -242,7 +242,7 @@ export const CaloriesView = () => {
           <Col span={10}>
             <Card title="Food log" style={{ minHeight: 140 }}>
               <Flex gap="sm" justify="end">
-                <Tooltip title="Joules logged today" style={styleContainer}>
+                <Tooltip title="Joules logged today">
                   <Progress
                     status="active"
                     type="circle"
@@ -273,7 +273,7 @@ export const CaloriesView = () => {
               </Space>
             </Card>
           </Col>
-          <Col span={4}>
+          <Col span={10}>
             <Card title="Food library" style={{ minHeight: 140 }}>
               <Flex gap="small" align="center">
                 <Input

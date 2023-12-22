@@ -94,7 +94,9 @@ export const WaterTrackingView = ({ currentIntake, setCurrentIntake }) => {
                 "0%": "#ffe58f",
                 "50%": "#ff5343",
                 "100%": "#87d068"
-              }}/>
+              }}
+              style={{ margin: "auto" }}
+              />
             </Tooltip>
             </Flex>
             <p>Remember to stay hydrated!</p>
