@@ -52,14 +52,15 @@ export const CaloriesView = () => {
   const percentage = CALORIES_TARGET;
 
   const formatPercentage = () => {
+    const roundedCalories = Math.floor(currentCalories);
     return (
       <div>
       <Space align="center" justify="center" direction="vertical">
         <Typography.Title level={2} style={{ margin: 0 }}>
-          {currentCalories}
+          {roundedCalories}
         </Typography.Title>
         <Typography.Title level={5} style={{ margin: 0, fontWeight: 300 }}>
-          out of {CALORIES_TARGET} joules
+          out of {CALORIES_TARGET} kcal
         </Typography.Title>
       </Space>
       </div>
