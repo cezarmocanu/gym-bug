@@ -133,7 +133,7 @@ export const CaloriesView = () => {
     const handler = () => {
       messageInstance.destroy();
       messageInstance.open({
-        type: "danger",
+        type: "succes",
         content: `Added ${foodItem.name} - ${foodItem.calories} kcal`,
         duration: 2,
       });
@@ -141,9 +141,10 @@ export const CaloriesView = () => {
       const item = {
         uuid: uuidv4(),
         calories: foodItem.calories,
+        date: new Date(1702762723036),
       };
 
-      setLoggedFoods([...loggedFoods]);
+      setLoggedFoods([...loggedFoods, item]);
     };
 
     return handler;
