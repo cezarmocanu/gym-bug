@@ -49,7 +49,7 @@ export const CaloriesView = () => {
     CALORIES_TARGET
   );
 
-  const percentage = CALORIES_TARGET * 0 + 75;
+  const percentage = CALORIES_TARGET;
 
   const formatPercentage = () => {
     return (
