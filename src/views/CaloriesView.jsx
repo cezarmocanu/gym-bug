@@ -22,8 +22,9 @@ import { v4 as uuidv4 } from "uuid";
 const { useMessage } = message;
 
 const dateFormat = Intl.DateTimeFormat("ro-RO", {
-  timeStyle: "full",
-  timeZone: "Europe/Bucharest",
+  hour: "numeric",
+  minute: "numeric",
+  second: "numeric",
 });
 const buildFoodURI = (query) => `/v1/nutrition?query=${query}`;
 const CALORIES_TARGET = 2200;
@@ -119,9 +120,9 @@ export const CaloriesView = () => {
         duration: 2,
       });
 
-      const indexToRemove = loggedFoods.findIndex((item) => item.uuid === 25);
+      const indexToRemove = loggedFoods.findIndex((item) => item.uuid === foodItem.uuid);
 
-      loggedFoods.splice(indexToRemove + 1, 1);
+      loggedFoods.splice(indexToRemove, 1);
       setLoggedFoods(loggedFoods);
     };
 
@@ -242,7 +243,7 @@ export const CaloriesView = () => {
           <Col span={10}>
             <Card title="Food log" style={{ minHeight: 140 }}>
               <Flex gap="sm" justify="end">
-                <Tooltip title="Joules logged today">
+                <Tooltip title="Calories logged today">
                   <Progress
                     status="active"
                     type="circle"
@@ -250,9 +251,9 @@ export const CaloriesView = () => {
                     percent={percentage}
                     size={160}
                     strokeColor={{
-                      "0%": "#ffe58f",
-                      "50%": "#ff5343",
-                      "100%": "#87d068",
+                      "0%": "#87d068",
+                      "50%": "#ffe58f",
+                      "100%":  "#ff5343",
                     }}
                     style={{ margin: "auto" }}
                   />
