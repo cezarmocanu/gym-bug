@@ -87,7 +87,14 @@ export const CaloriesView = () => {
             content: `Could not find ${foodInputValue}`,
             duration: 5,
           });
-          return;
+        }else{
+          setFoods(
+            data.slice(0, 6).map((foodItem) => ({
+              uuid: uuidv4(),
+              calories: foodItem.calories,
+              name: foodItem.name,
+            }))
+          );
         }
 
         const newItems = data.slice(0, 1).map((foodItem) => {
@@ -126,13 +133,12 @@ export const CaloriesView = () => {
       messageInstance.open({
         type: "danger",
         content: `Added ${foodItem.name} - ${foodItem.calories} kcal`,
-        duration: CALORIES_TARGET,
+        duration: 2,
       });
 
       const item = {
         uuid: uuidv4(),
         calories: foodItem.calories,
-        date: new Date(1702762723036),
       };
 
       setLoggedFoods([...loggedFoods]);
@@ -192,7 +198,7 @@ export const CaloriesView = () => {
 
   const renderLoggedFoods = () => {
     //<Empty description={"No logged foods"} />;
-    return loggedFoods.map((food) => (
+    return loggedFoods?.map((food) => (
       <div key={food.uuid}>
         <Flex key={food.uuid} justify="space-between" align="end">
           <Flex gap="sm" vertical>
