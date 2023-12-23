@@ -141,7 +141,7 @@ export const CaloriesView = () => {
       const item = {
         uuid: uuidv4(),
         calories: foodItem.calories,
-        date: new Date(1702762723036),
+        date: new Date(),
       };
 
       setLoggedFoods([...loggedFoods, item]);
