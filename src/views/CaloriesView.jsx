@@ -205,7 +205,7 @@ export const CaloriesView = () => {
         <Flex key={food.uuid} justify="space-between" align="end">
           <Flex gap="sm" vertical>
             <Typography.Title level={5} style={{ margin: 0, fontWeight: 500 }}>
-              {food.toString()}
+              {food.name}
             </Typography.Title>
             <Typography.Title
               style={{ margin: 0, fontSize: 12, fontWeight: 300 }}
