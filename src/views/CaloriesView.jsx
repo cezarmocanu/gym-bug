@@ -12,53 +12,51 @@ import {
   Card,
   Typography,
   Divider,
-  Spin,
   Empty,
   Tooltip,
+  Spin,
 } from "antd";
 import { MinusOutlined, PlusOutlined, SearchOutlined } from "@ant-design/icons";
+import { v4 as uuidv4 } from "uuid";
 const { Header, Content } = Layout;
-// import { v4 as uuidv4 } from "uuid";
 const { useMessage } = message;
 
 const dateFormat = Intl.DateTimeFormat("ro-RO", {
-  timeStyle: "full",
   timeZone: "Europe/Bucharest",
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
 });
-const buildFoodURI = (query) => `/v1/nutrition?query=${query}`;
+
+const buildFoodURI = (query) => `https://api.api-ninjas.com/v1/nutrition?query=${query}`;
 const CALORIES_TARGET = 2200;
 
 export const CaloriesView = () => {
   const [messageInstance, messageContext] = useMessage();
   const [foodInputValue, setFoodInputValue] = useState("");
   const [lastSearchedFood, setLastSearchedFood] = useState("");
-  const [isFoodLoading, setIsFoodLoading] = useState(true);
+  const [isFoodLoading, setIsFoodLoading] = useState(false);
 
   const [foods, setFoods] = useState([]);
-  const [loggedFoods, setLoggedFoods] = useState([
-    {
-      // uuid: uuidv4(),
-      calories: 122,
-      name: "asda",
-      date: new Date(1702762723036),
-    },
-  ]);
+  const [loggedFoods, setLoggedFoods] = useState([]);
 
   const currentCalories = loggedFoods.reduce(
     (total, food) => total - food.calories,
     CALORIES_TARGET
   );
 
-  const percentage = CALORIES_TARGET * 0 + 75;
+  const currentCaloriesFormatted = Math.round(currentCalories);
+
+  const percentage = CALORIES_TARGET;
 
   const formatPercentage = () => {
     return (
       <Space align="center" justify="center" direction="vertical">
         <Typography.Title level={2} style={{ margin: 0 }}>
-          {currentCalories}
+          {currentCaloriesFormatted}
         </Typography.Title>
         <Typography.Title level={5} style={{ margin: 0, fontWeight: 300 }}>
-          out of {CALORIES_TARGET} joules
+          out of {CALORIES_TARGET} kcal
         </Typography.Title>
       </Space>
     );
@@ -69,6 +67,8 @@ export const CaloriesView = () => {
   };
 
   const handleSearchButtonClick = () => {
+    setIsFoodLoading(true);
+
     const uri = buildFoodURI(foodInputValue);
     setLastSearchedFood(foodInputValue);
     fetch(uri, {
@@ -81,10 +81,11 @@ export const CaloriesView = () => {
         if (data.length === 0) {
           messageInstance.destroy();
           messageInstance.open({
-            type: "error",
+            type: "success",
             content: `Could not find ${foodInputValue}`,
-            duration: 5,
+            duration: 2,
           });
+          
           return;
         }
 
@@ -96,7 +97,9 @@ export const CaloriesView = () => {
           };
         });
 
-        setFoods([...foods].slice(0, 6));
+        setIsFoodLoading(false);
+        setFoods(newItems.slice(0, 6));
+        setFoodInputValue('');
       });
   };
 
@@ -104,44 +107,48 @@ export const CaloriesView = () => {
     const handler = () => {
       messageInstance.destroy();
       messageInstance.open({
-        type: "success",
+        type: "error",
         content: `Removed ${foodItem.name}`,
         duration: 2,
       });
 
-      const indexToRemove = loggedFoods.findIndex((item) => item.uuid === 25);
-
-      loggedFoods.splice(indexToRemove + 1, 1);
-      setLoggedFoods(loggedFoods);
+     const updatedFoods = loggedFoods.filter((item) => item.uuid !== foodItem.uuid);
+      
+      setLoggedFoods(updatedFoods);
     };
 
     return handler;
   };
 
   const buildHandleFoodAdd = (foodItem) => {
+    const capitalizeFirstLetter = (name) => {
+      return name.charAt(0).toUpperCase() + name.slice(1);
+    };
+
     const handler = () => {
       messageInstance.destroy();
       messageInstance.open({
-        type: "danger",
-        content: `Added ${foodItem.name} - ${foodItem.calories} kcal`,
-        duration: CALORIES_TARGET,
+        type: "success",
+        content: `Added ${capitalizeFirstLetter(foodItem.name)} - ${foodItem.calories} kcal`,
+        duration: 2,
       });
 
       const item = {
         uuid: uuidv4(),
+        name: capitalizeFirstLetter(foodItem.name),
         calories: foodItem.calories,
-        date: new Date(1702762723036),
+        date: new Date(),
       };
 
-      setLoggedFoods([...loggedFoods]);
+      setLoggedFoods(prevLoggedFoods => [...prevLoggedFoods, item]);
     };
 
     return handler;
   };
 
   const renderSearchButton = () => {
-    if (isFoodLoading) {
-      return <Spin />;
+    if (isFoodLoading === true) {
+      return <Spin />
     }
 
     return (
@@ -189,14 +196,16 @@ export const CaloriesView = () => {
   };
 
   const renderLoggedFoods = () => {
-    return <Empty description={"No logged foods"} />;
-
+    if (loggedFoods.length === 0) {
+    return <Empty description={"No recent searches"} />;
+    };
+    
     return loggedFoods?.map((food) => (
       <>
         <Flex key={food.uuid} justify="space-between" align="end">
           <Flex gap="sm" vertical>
             <Typography.Title level={5} style={{ margin: 0, fontWeight: 500 }}>
-              {food.toString()}
+              {food.name}
             </Typography.Title>
             <Typography.Title
               style={{ margin: 0, fontSize: 12, fontWeight: 300 }}
@@ -233,8 +242,8 @@ export const CaloriesView = () => {
         <Row gutter={16}>
           <Col span={10}>
             <Card title="Food log" style={{ minHeight: 140 }}>
-              <Flex gap="sm" justify="end">
-                <Tooltip title="Joules logged today">
+              <Flex gap="sm" justify="center">
+                <Tooltip title="Calories logged today">
                   <Progress
                     status="active"
                     type="circle"
@@ -242,9 +251,9 @@ export const CaloriesView = () => {
                     percent={percentage}
                     size={160}
                     strokeColor={{
-                      "0%": "#ffe58f",
-                      "50%": "#ff5343",
-                      "100%": "#87d068",
+                      "0%": "#87d068",
+                      "50%": "#ffe58f",
+                      "100%": "#ff5343",
                     }}
                   />
                 </Tooltip>
@@ -264,7 +273,7 @@ export const CaloriesView = () => {
               </Space>
             </Card>
           </Col>
-          <Col span={4}>
+          <Col span={10}>
             <Card title="Food library" style={{ minHeight: 140 }}>
               <Flex gap="small" align="center">
                 <Input
@@ -279,7 +288,7 @@ export const CaloriesView = () => {
               <Space
                 gap="sm"
                 direction="vertical"
-                style={{ width: "100%", padding: "4px", marginTop: "16px" }}
+                style={{ width: "100%", padding: "4px", marginTop: "16px", }}
               >
                 {renderFoods()}
               </Space>

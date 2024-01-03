@@ -90,7 +90,7 @@ export const ActivityTrackingView = ({ activities, setActivities }) => {
     );
   };
 
-  const percentage = ACTIVITY_GOAL * 0 + 75;
+  const percentage = ACTIVITY_GOAL;
 
   const formatPercentage = () => {
     return (
@@ -163,9 +163,9 @@ export const ActivityTrackingView = ({ activities, setActivities }) => {
                       percent={percentage}
                       size={160}
                       strokeColor={{
-                        "0%": "#ffe58f",
-                        "50%": "#ff5343",
-                        "100%": "#87d068",
+                        "0%": "#87d068",
+                        "50%": "#ffe58f",
+                        "100%": "#ff5343",
                       }}
                     />
                   </Tooltip>
