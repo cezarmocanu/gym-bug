@@ -8,6 +8,10 @@ const { Sider } = Layout;
 
 const MENU_ITEMS = [
   {
+    key:"calories",
+    label:"Calories Tracking",
+  },
+  {
     key: "water",
     label: "Water Tracking",
   },
