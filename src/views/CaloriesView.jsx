@@ -145,7 +145,7 @@ export const CaloriesView = () => {
         date: new Date(),
       };
 
-      setLoggedFoods([...loggedFoods, item]);
+      setLoggedFoods(prevLoggedFoods=>[...prevLoggedFoods, item]);
     };
 
     return handler;
@@ -201,7 +201,9 @@ export const CaloriesView = () => {
   };
 
   const renderLoggedFoods = () => {
-    //<Empty description={"No logged foods"} />;
+    if(loggedFoods.length===0){
+      return <Empty description={"No logged foods"} />;
+    }
     return loggedFoods?.map((food) => (
       <div key={food.uuid}>
         <Flex key={food.uuid} justify="space-between" align="end">
