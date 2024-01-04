@@ -22,11 +22,12 @@ import { v4 as uuidv4 } from "uuid";
 const { useMessage } = message;
 
 const dateFormat = Intl.DateTimeFormat("ro-RO", {
-  hour: "numeric",
-  minute: "numeric",
-  second: "numeric",
+  timeZone: "Europe/Bucharest",
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
 });
-const buildFoodURI = (query) => `/v1/nutrition?query=${query}`;
+const buildFoodURI = (query) => `https://api.api-ninjas.com/v1/nutrition?query=${query}`;
 const CALORIES_TARGET = 2200;
 
 export const CaloriesView = () => {
@@ -36,14 +37,7 @@ export const CaloriesView = () => {
   const [isFoodLoading, setIsFoodLoading] = useState(false);
 
   const [foods, setFoods] = useState([]);
-  const [loggedFoods, setLoggedFoods] = useState([
-    {
-      uuid: uuidv4(),
-      calories: 122,
-      name: "asda",
-      date: new Date(1702762723036),
-    },
-  ]);
+  const [loggedFoods, setLoggedFoods] = useState([]);
 
   const currentCalories = loggedFoods.reduce(
     (total, food) => total - food.calories,
@@ -76,6 +70,7 @@ export const CaloriesView = () => {
     const uri = buildFoodURI(foodInputValue);
     setLastSearchedFood(foodInputValue);
     fetch(uri, {
+      method:"GET",
       headers: {
         "X-Api-Key": import.meta.env.VITE_API_KEY,
       },
@@ -85,7 +80,7 @@ export const CaloriesView = () => {
         if (data.length === 0) {
           messageInstance.destroy();
           messageInstance.open({
-            type: "error",
+            type: "succes",
             content: `Could not find ${foodInputValue}`,
             duration: 5,
           });
@@ -107,7 +102,7 @@ export const CaloriesView = () => {
           };
         });
 
-        setFoods([...foods].slice(0, 6));
+        setFoods(newItems.slice(0, 6));
       });
   };
 
