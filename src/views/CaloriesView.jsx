@@ -103,6 +103,8 @@ export const CaloriesView = () => {
         });
 
         setFoods(newItems.slice(0, 6));
+        setFoodInputValue('');
+
       });
   };
 
@@ -110,31 +112,35 @@ export const CaloriesView = () => {
     const handler = () => {
       messageInstance.destroy();
       messageInstance.open({
-        type: "success",
+        type: "error",
         content: `Removed ${foodItem.name}`,
         duration: 2,
       });
 
-      const indexToRemove = loggedFoods.findIndex((item) => item.uuid === foodItem.uuid);
+      const updatedFoods = loggedFoods.filter((item) => item.uuid !== foodItem.uuid);
 
-      loggedFoods.splice(indexToRemove, 1);
-      setLoggedFoods(loggedFoods);
+      setLoggedFoods(updatedFoods);
     };
 
     return handler;
   };
 
   const buildHandleFoodAdd = (foodItem) => {
+    const firstLetter = (name) => {
+      return name.charAt(0).toUpperCase() + name.slice(1);
+    };
+
     const handler = () => {
       messageInstance.destroy();
       messageInstance.open({
         type: "succes",
-        content: `Added ${foodItem.name} - ${foodItem.calories} kcal`,
+        content: `Added ${firstLetter(foodItem.name)} - ${foodItem.calories} kcal`,
         duration: 2,
       });
 
       const item = {
         uuid: uuidv4(),
+        name:firstLetter(foodItem.name),
         calories: foodItem.calories,
         date: new Date(),
       };
