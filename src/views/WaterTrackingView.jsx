@@ -42,7 +42,7 @@ export const WaterTrackingView = ({ currentIntake, setCurrentIntake }) => {
     setCurrentIntake(currentIntake + value);
   };
 
-  const percentage = WATER_GOAL * 0 + 75;
+  const percentage = (currentIntake * 100)/WATER_GOAL;
 
   const formatPercentage = () => {
     return (

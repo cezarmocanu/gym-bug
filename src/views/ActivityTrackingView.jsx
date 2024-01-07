@@ -90,7 +90,7 @@ export const ActivityTrackingView = ({ activities, setActivities }) => {
     );
   };
 
-  const percentage = ACTIVITY_GOAL;
+  const percentage = (totalActivityDuration * 100) / ACTIVITY_GOAL;
 
   const formatPercentage = () => {
     return (

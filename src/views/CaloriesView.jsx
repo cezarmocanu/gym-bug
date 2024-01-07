@@ -41,13 +41,13 @@ export const CaloriesView = () => {
   const [loggedFoods, setLoggedFoods] = useState([]);
 
   const currentCalories = loggedFoods.reduce(
-    (total, food) => total - food.calories,
-    CALORIES_TARGET
+    (total, food) => total + food.calories,
+    0
   );
 
   const currentCaloriesFormatted = Math.round(currentCalories);
 
-  const percentage = CALORIES_TARGET;
+  const percentage = (currentCalories * 100)/ CALORIES_TARGET;
 
   const formatPercentage = () => {
     return (
@@ -81,13 +81,15 @@ export const CaloriesView = () => {
         if (data.length === 0) {
           messageInstance.destroy();
           messageInstance.open({
-            type: "success",
+            type: "error",
             content: `Could not find ${foodInputValue}`,
             duration: 2,
           });
-          
+          setIsFoodLoading(false);
           return;
         }
+        
+        setIsFoodLoading(false);
 
         const newItems = data.slice(0, 1).map((foodItem) => {
           return {
@@ -97,8 +99,7 @@ export const CaloriesView = () => {
           };
         });
 
-        setIsFoodLoading(false);
-        setFoods(newItems.slice(0, 6));
+        setFoods([...newItems, ...foods].slice(0, 6));
         setFoodInputValue('');
       });
   };
@@ -147,10 +148,9 @@ export const CaloriesView = () => {
   };
 
   const renderSearchButton = () => {
-    if (isFoodLoading === true) {
+    if (isFoodLoading) {
       return <Spin />
     }
-
     return (
       <Button
         type="primary"
@@ -198,7 +198,7 @@ export const CaloriesView = () => {
   const renderLoggedFoods = () => {
     if (loggedFoods.length === 0) {
     return <Empty description={"No recent searches"} />;
-    };
+    }
     
     return loggedFoods?.map((food) => (
       <>
