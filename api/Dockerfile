@@ -7,19 +7,11 @@ WORKDIR /app
 # Copy package.json and package-lock.json to the container
 COPY package*.json ./
 
-RUN cat package.json
-
 # Install dependencies
 RUN npm install
 
 # Copy the rest of the application code to the container
 COPY . .
-
-# Install dependencies
-RUN ls
-
-# Install dependencies
-RUN ls node_modules
 
 # Build the Nest.js application
 RUN npm run build
