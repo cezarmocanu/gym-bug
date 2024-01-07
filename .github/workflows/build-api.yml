@@ -1,0 +1,36 @@
+name: Build Api Image and Push
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Set Image Tag
+        id: set-image-tag
+        run: |
+          IMAGE_TAG=cezarmocanu/gymbug-be:latest
+          echo "::set-output name=image-tag::$IMAGE_TAG"
+
+      - name: Set Env Content
+        id: set-env-content
+        run: echo "::set-output name=env-content::${{ secrets.API_ENV }}"
+
+      - name: Build Docker Image
+        run: |
+          echo "$env-content" > .env
+          docker build -t ${{ steps.set-image-tag.outputs.image-tag }} --build-arg ENV_FILE=.env .
+
+      - name: Push Docker Image
+        run: docker push ${{ steps.set-image-tag.outputs.image-tag }}
