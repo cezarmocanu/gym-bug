@@ -1,6 +1,9 @@
-import { useState } from "react";
 import { message, Button, Flex, Layout, Space } from "antd";
 import Title from "antd/es/typography/Title";
+import {
+  Progress,
+  Tooltip,
+} from "antd";
 const { Header, Content } = Layout;
 const { useMessage } = message;
 
@@ -39,6 +42,21 @@ export const WaterTrackingView = ({ currentIntake, setCurrentIntake }) => {
     setCurrentIntake(currentIntake + value);
   };
 
+  const percentage = (currentIntake * 100)/WATER_GOAL;
+
+  const formatPercentage = () => {
+    return (
+      <Space align="center" justify="center" direction="vertical">
+        <Title level={2} style={{ margin: 0 }}>
+          {currentIntake}
+        </Title>
+        <Title level={5} style={{ margin: 0, fontWeight: 300 }}>
+          out of {WATER_GOAL} glasses of water
+        </Title>
+      </Space>
+    );
+  };
+
   return (
     <Layout style={{ height: "100vh", overflow: "auto" }}>
       {messageContext}
@@ -64,6 +82,20 @@ export const WaterTrackingView = ({ currentIntake, setCurrentIntake }) => {
             <Button danger onClick={() => handleWaterIntakeUpdate(-1)}>
               Remove 1 Glass
             </Button>
+            <Tooltip title="Glasses of water logged today">
+                  <Progress
+                    status="active"
+                    type="circle"
+                    format={formatPercentage}
+                    percent={percentage}
+                    size={160}
+                    strokeColor={{
+                      "0%": "#ffe58f",
+                      "50%": "#ff5343",
+                      "100%": "#87d068",
+                    }}
+                  />
+                </Tooltip>
           </Flex>
           <p>Remember to stay hydrated!</p>
         </Space>
