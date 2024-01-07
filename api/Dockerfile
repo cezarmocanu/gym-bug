@@ -7,13 +7,13 @@ WORKDIR /app
 # Copy package.json and package-lock.json to the container
 COPY package*.json ./
 
-RUN cat package.json
-
 # Install dependencies
 RUN npm install
 
 # Copy the rest of the application code to the container
 COPY . .
+
+RUN ls
 
 # Expose the port that your Nest.js application is running on
 EXPOSE 3000
