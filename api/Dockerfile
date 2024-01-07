@@ -10,9 +10,6 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
-# Build app
-RUN npm run build
-
 # Copy the rest of the application code to the container
 COPY . .
 
@@ -20,4 +17,4 @@ COPY . .
 EXPOSE 3000
 
 # Define the command to run your application
-CMD ["npm", "run", "start:prod"]
+CMD ["npm", "run", "start:dev"]
