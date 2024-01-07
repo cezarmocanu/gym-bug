@@ -30,7 +30,7 @@ jobs:
       - name: Build Docker Image
         run: |
           echo "$env-content" > .env
-          docker build -t ${{ steps.set-image-tag.outputs.image-tag }} --build-arg ENV_FILE=.env .
+          docker build -t ${{ steps.set-image-tag.outputs.image-tag }} --build-arg ENV_FILE=.env api/
 
       - name: Push Docker Image
         run: docker push ${{ steps.set-image-tag.outputs.image-tag }}
