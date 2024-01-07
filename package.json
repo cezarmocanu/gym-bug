@@ -1,0 +1,21 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "client:dev": "cd client && npm run dev",
+    "api:dev": "cd api && npm run start:dev",
+    "app:install": "cd client && npm i && cd .. && cd api && npm i"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cezarmocanu/gym-bug.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cezarmocanu/gym-bug/issues"
+  },
+  "homepage": "https://github.com/cezarmocanu/gym-bug#readme"
+}
