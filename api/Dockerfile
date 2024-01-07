@@ -13,10 +13,12 @@ RUN npm install
 # Copy the rest of the application code to the container
 COPY . .
 
-RUN ls
+# Build the Nest.js application
+RUN npm run build
+
 
 # Expose the port that your Nest.js application is running on
 EXPOSE 3000
 
-# Define the command to run your application
-CMD ["npm", "run", "start:dev"]
+# Command to run your application
+CMD ["npm", "run", "start:prod"]
