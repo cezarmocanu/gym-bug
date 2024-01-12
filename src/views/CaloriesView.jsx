@@ -40,11 +40,10 @@ export const CaloriesView = () => {
   const [loggedFoods, setLoggedFoods] = useState([]);
 
   const currentCalories = loggedFoods.reduce(
-    (total, food) => total - food.calories,
-    CALORIES_TARGET
+    (total, food) => total + food.calories,
+    0
   );
-
-  const percentage = CALORIES_TARGET;
+  const percentage = (currentCalories * 100) / CALORIES_TARGET;
 
   const formatPercentage = () => {
     const roundedCalories = Math.floor(currentCalories);
@@ -67,6 +66,9 @@ export const CaloriesView = () => {
   };
 
   const handleSearchButtonClick = () => {
+
+    setIsFoodLoading(true);
+
     const uri = buildFoodURI(foodInputValue);
     setLastSearchedFood(foodInputValue);
     fetch(uri, {
@@ -82,9 +84,10 @@ export const CaloriesView = () => {
           messageInstance.open({
             type: "succes",
             content: `Could not find ${foodInputValue}`,
-            duration: 5,
+            duration: 2,
           });
         }else{
+          setIsFoodLoading(false);
           setFoods(
             data.slice(0, 6).map((foodItem) => ({
               uuid: uuidv4(),
@@ -102,7 +105,7 @@ export const CaloriesView = () => {
           };
         });
 
-        setFoods(newItems.slice(0, 6));
+        setFoods([...newItems, ...foods].slice(0, 6));
         setFoodInputValue('');
 
       });
@@ -133,7 +136,7 @@ export const CaloriesView = () => {
     const handler = () => {
       messageInstance.destroy();
       messageInstance.open({
-        type: "succes",
+        type: "danger",
         content: `Added ${firstLetter(foodItem.name)} - ${foodItem.calories} kcal`,
         duration: 2,
       });

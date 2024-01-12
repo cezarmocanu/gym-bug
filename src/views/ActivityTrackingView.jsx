@@ -90,7 +90,7 @@ export const ActivityTrackingView = ({ activities, setActivities }) => {
     );
   };
 
-  const percentage = ACTIVITY_GOAL * 0 + 75;
+  const percentage = (totalActivityDuration * 100)/ACTIVITY_GOAL;
 
   const formatPercentage = () => {
     return (
@@ -162,9 +162,9 @@ export const ActivityTrackingView = ({ activities, setActivities }) => {
                       percent={percentage}
                       size={160}
                       strokeColor={{
-                        "0%": "#ffe58f",
+                        "0%": "#87d068",
                         "50%": "#ff5343",
-                        "100%": "#87d068",
+                        "100%": "#ffe58f",
                       }}
                       style={{ margin: "auto" }}
                     />

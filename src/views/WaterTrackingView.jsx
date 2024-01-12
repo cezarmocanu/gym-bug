@@ -43,7 +43,7 @@ export const WaterTrackingView = ({ currentIntake, setCurrentIntake }) => {
     setCurrentIntake(currentIntake + value);
   };
 
-  const percentage = WATER_GOAL * 0 + 75;
+  const percentage = (currentIntake * 100)/WATER_GOAL;
 
   const formatPercentage = () => {
     return (
@@ -62,7 +62,7 @@ export const WaterTrackingView = ({ currentIntake, setCurrentIntake }) => {
     <Layout style={{ height: "100vh", overflow: "auto" }}>
       {messageContext}
       <Header style={{ color: "white" }}>Water Tracking</Header>
-      <Space direction="vertical" style={{ padding: 16 }}></Space>
+      <Space direction="vertical" style={{ padding: 16 }}>
       <Content style={{ display: "flex", flexDirection: "column" }}>
       <Title level={1}>
             Today I drank{" "}
@@ -91,9 +91,9 @@ export const WaterTrackingView = ({ currentIntake, setCurrentIntake }) => {
               percent={percentage}
               size={160}
               strokeColor={{
-                "0%": "#ffe58f",
-                "50%": "#ff5343",
-                "100%": "#87d068"
+                "0%": "#87d068",
+                "50%": "#ffe58f",
+                "100%": "#ff5343"
               }}
               style={{ margin: "auto" }}
               />
@@ -102,6 +102,8 @@ export const WaterTrackingView = ({ currentIntake, setCurrentIntake }) => {
             <p>Remember to stay hydrated!</p>
           <Space/>
       </Content>
+      </Space>
+      
     </Layout>
   );
 };
