@@ -86,6 +86,7 @@ export const CaloriesView = () => {
             content: `Could not find ${foodInputValue}`,
             duration: 2,
           });
+          setIsFoodLoading(false);
         }else{
           setIsFoodLoading(false);
           setFoods(
