@@ -4,36 +4,38 @@ import Title from "antd/es/typography/Title";
 const { Header, Content } = Layout;
 const { useMessage } = message;
 
-const WATER_GOAL = 100;
+const WATER_GOAL = 8;
 
 const createWaterChangeMessage = (messageInstance, value) => {
   if (value < 0) {
-    messageInstance.success(`Removed ${value} glass of water`);
+    messageInstance.error(`Removed ${value} glass of water`);
     return;
   }
 
-  messageInstance.error(`Added ${value} glass of water`);
+  messageInstance.success(`Added ${value} glass of water`);
 };
 
 const getProgressColor = (currentIntake, goal) => {
-  return "#50C878";
+  
 
   if (currentIntake < (2 / 100) * goal) {
-    return "#FFA500";
-
+     return "#FF5050";
+    }
     if (currentIntake < (80 / 100) * goal) {
-      return "#FF5050";
+      return "#FFA500";
     }
 
     if (currentIntake < (15 / 100) * goal) {
       return "#e7c400";
     }
-  }
+
+    return "#50C878";
+  
 };
 
 export const WaterTrackingView = () => {
   const [messageInstance, messageContext] = useMessage();
-  const [currentIntake, setCurrentIntake] = useState(-20);
+  const [currentIntake, setCurrentIntake] = useState(0);
 
   const handleWaterIntakeUpdate = (value) => {
     messageInstance.destroy();
@@ -53,18 +55,18 @@ export const WaterTrackingView = () => {
             <span
               style={{ color: getProgressColor(currentIntake, WATER_GOAL) }}
             >
-              {WATER_GOAL} / {currentIntake} / {WATER_GOAL}
+               {currentIntake} / {WATER_GOAL}
             </span>{" "}
             glasses of water
           </Title>
           <Flex gap="small">
-            <Button type="primary" onClick={() => handleWaterIntakeUpdate(-1)}>
+            <Button type="primary" onClick={() => handleWaterIntakeUpdate(+1)}>
               Drink 1 Glass
             </Button>
-            <Button onClick={() => handleWaterIntakeUpdate(-0.5)}>
+            <Button onClick={() => handleWaterIntakeUpdate(+0.5)}>
               Drink 1/2 Glass
             </Button>
-            <Button danger onClick={() => handleWaterIntakeUpdate(+1)}>
+            <Button danger onClick={() => handleWaterIntakeUpdate(-1)}>
               Remove 1 Glass
             </Button>
           </Flex>
