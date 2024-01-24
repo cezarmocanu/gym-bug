@@ -106,6 +106,7 @@ Hints:
 - Think about security issues that might cause a problem in the current setup of the project
 - Explore the api folder, and identify all the available endpoints, add those endpoints in the description of your PR. Indentify the request method, and give a short description of what you understand about the endpoint.
 - Explore the api folder, and in the PR, give a short description of what you think  `controller`, `service` mean in the context of the backend
+- Use the network tab when trying out requests. Check the headers, payload and the response sub tabs and see what the endpoint returns. Identify what is there and add in the PR description
 
 In case you feel that information is missing, ask, search and add. Edit the readme file in a separate branch and add the missing information.
 
