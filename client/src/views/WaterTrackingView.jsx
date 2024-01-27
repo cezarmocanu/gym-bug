@@ -44,12 +44,7 @@ export const WaterTrackingView = ({ currentIntake, setCurrentIntake }) => {
 
   const percentage = (currentIntake * 100)/WATER_GOAL;
 
-  const isDecrementBottonDisabled = () => {
-    if (currentIntake > 0) {
-    return false;
-    }
-    return true;
-  };
+  const isDecrementBottonDisabled = currentIntake <= 0;
 
   const formatPercentage = () => {
     return (
@@ -86,7 +81,7 @@ export const WaterTrackingView = ({ currentIntake, setCurrentIntake }) => {
             <Button onClick={() => handleWaterIntakeUpdate(+0.5)}>
               Drink 1/2 Glass
             </Button>
-            <Button danger onClick={() => handleWaterIntakeUpdate(-1)} disabled={isDecrementBottonDisabled()}>
+            <Button danger onClick={() => handleWaterIntakeUpdate(-1)} disabled={isDecrementBottonDisabled}>
               Remove 1 Glass
             </Button>
             <Tooltip title="Glasses of water logged today">
