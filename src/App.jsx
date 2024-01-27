@@ -10,6 +10,7 @@ import { useState } from "react";
 function App() {
   const [currentIntake, setCurrentIntake] = useState(0);
   const [activities, setActivities] = useState([]);
+  const [loggedFoods, setLoggedFoods] = useState([]);
 
   return (
     <Router>
@@ -34,7 +35,13 @@ function App() {
               />
             }
           />
-          <Route path="/calories" element={<CaloriesView />} />
+          <Route 
+            path="/calories" 
+            element={
+            <CaloriesView
+              loggedFoods={loggedFoods}
+              setLoggedFoods={setLoggedFoods} />
+            } />
         </Route>
       </Routes>
     </Router>

@@ -30,14 +30,13 @@ const dateFormat = Intl.DateTimeFormat("ro-RO", {
 const buildFoodURI = (query) => `https://api.api-ninjas.com/v1/nutrition?query=${query}`;
 const CALORIES_TARGET = 2200;
 
-export const CaloriesView = () => {
+export const CaloriesView = ({loggedFoods, setLoggedFoods}) => {
   const [messageInstance, messageContext] = useMessage();
   const [foodInputValue, setFoodInputValue] = useState("");
   const [lastSearchedFood, setLastSearchedFood] = useState("");
   const [isFoodLoading, setIsFoodLoading] = useState(false);
 
   const [foods, setFoods] = useState([]);
-  const [loggedFoods, setLoggedFoods] = useState([]);
 
   const currentCalories = loggedFoods.reduce(
     (total, food) => total + food.calories,
