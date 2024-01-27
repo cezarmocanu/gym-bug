@@ -5,6 +5,7 @@ import { WaterTrackingView } from "./views/WaterTrackingView";
 import { MenuView } from "./views/MenuView";
 import { HomeView } from "./views/HomeView";
 import { CaloriesView } from "./views/CaloriesView";
+import { LoginView } from "./views/LoginView";
 import { useState } from "react";
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" exact element={<MenuView />}>
+          <Route path="/" exact element={<MenuView />}>
           <Route path="/" element={<HomeView />} />
           <Route
             path="/water"
@@ -35,6 +36,12 @@ function App() {
             }
           />
           <Route path="/calories" element={<CaloriesView />} />
+          <Route
+            path="/login"
+            element={
+              <LoginView/>
+            }
+          />
         </Route>
       </Routes>
     </Router>
