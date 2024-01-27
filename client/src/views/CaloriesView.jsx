@@ -32,7 +32,7 @@ const buildFoodURI = (query) =>
   `https://api.api-ninjas.com/v1/nutrition?query=${query}`;
 const CALORIES_TARGET = 2200;
 
-export const CaloriesView = (loggedFoods, setLoggedFoods) => {
+export const CaloriesView = ({loggedFoods, setLoggedFoods}) => {
   const [messageInstance, messageContext] = useMessage();
   const [foodInputValue, setFoodInputValue] = useState("");
   const [lastSearchedFood, setLastSearchedFood] = useState("");
