@@ -112,7 +112,7 @@ export const ActivityTrackingView = ({ activities, setActivities }) => {
       <Content style={{ display: "flex", flexDirection: "column" }}>
 
       <Row gutter={20}>
-          <Col span={25}>
+          <Col span={10}>
 
           <Space direction="vertical" style={{ padding: 16 }}>
             <Space align="end">
@@ -154,27 +154,29 @@ export const ActivityTrackingView = ({ activities, setActivities }) => {
                     {renderTotalActivityTime()}
                     {renderActivities()}
                   </Space>
-                  <Flex gap="sm" justify="end">
-                  <Tooltip title="Activities logged today">
-                    <Progress
-                      status="active"
-                      type="circle"
-                      format={formatPercentage}
-                      percent={percentage}
-                      size={160}
-                      strokeColor={{
-                        "0%": "#87d068",
-                        "50%": "#ffe58f",
-                        "100%": "#ff5343",
-                      }}
-                    />
-                  </Tooltip>
-                  </Flex>
+
                 </Card>
               </Col>
             </Row>
           </Space>
-
+        </Col>
+        <Col span={10}> 
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+            <Tooltip title="Activities logged today">
+              <Progress
+                status="active"
+                type="circle"
+                format={formatPercentage}
+                percent={percentage}
+                size={160}
+                strokeColor={{
+                  "0%": "#87d068",
+                  "50%": "#ffe58f",
+                  "100%": "#ff5343",
+                }}
+              />
+            </Tooltip>
+          </div>
         </Col>
       </Row>
 
