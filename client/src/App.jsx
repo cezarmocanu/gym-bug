@@ -37,12 +37,10 @@ function App() {
           />
           <Route path="/calories" 
           element={
-            <CaloriesView 
+              <CaloriesView 
                 loggedFoods={loggedFoods}
                 setLoggedFoods={setLoggedFoods}
-                />
-              } 
-            />
+              />} />
         </Route>
       </Routes>
     </Router>
