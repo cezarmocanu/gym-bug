@@ -76,6 +76,9 @@ export const LoginView = () => {
                         <Typography.Text style={{color: 'red'}}>
                             {error}
                         </Typography.Text>
+                        <Typography.Text style={{color: 'green'}}>
+                            {loginSuccess}
+                        </Typography.Text>
                     </Row>
                     </Card>
                 </Col>
