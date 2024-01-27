@@ -10,14 +10,12 @@ import {
   } from "antd";
   const { Header, Content } = Layout;
 
-
 export const LoginView = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [loginSuccess, setLoginSuccess] = useState("");
 
-    
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
       };
@@ -26,10 +24,8 @@ export const LoginView = () => {
         setPassword(event.target.value);
       };
 
-
     const handleLogin = () => {
         const uri = 'https://torium-systems.com/auth/login';
-        
         fetch(uri, {
             method: 'POST',
             headers: {
@@ -43,24 +39,20 @@ export const LoginView = () => {
                 setError(data.message);
                 return;
             }
-
             setLoginSuccess('Login succesfully');
             return;
         });
     };
 
-
     return (
         <Layout style={{ height: "100vh", overflow: "auto" }}>
-
         <Header style={{ color: "white" }}>Login Tracking</Header>
             <Content
         style={{ display: "flex", flexDirection: "column", padding: "1rem" }}
-      >
+            >
             <Row gutter={16}>
                  <Col span={10} >
-                    <Card title="Login page" style={{ minHeight: 140 }}>
-                    
+                    <Card title="Login page" style={{ minHeight: 140 }}> 
                     <Row style={{marginBottom: 15 }}>
                         <Typography.Text>Email:</Typography.Text>
                         <Input
@@ -88,7 +80,6 @@ export const LoginView = () => {
                     </Card>
                 </Col>
             </Row>
-        
          </Content>
      </Layout>
     );
