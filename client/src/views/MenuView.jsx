@@ -19,6 +19,10 @@ const MENU_ITEMS = [
     key: "calories",
     label: "Calories Tracking",
   },
+  {
+    key: "login",
+    label: "Login Tracking",
+  },
 ];
 
 export const MenuView = () => {
