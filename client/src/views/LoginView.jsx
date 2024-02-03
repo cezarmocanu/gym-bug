@@ -35,9 +35,9 @@ export const LoginView = ({loginSuccess, setLoginSuccess}) => {
         .then((data) => data.json())
         .then((data) => {
             if (data.access_token) {
-            setLoginSuccess(true);
-            window.location.href="/water";
-            return;
+                setLoginSuccess(true);
+                window.location.href="/water";
+                return;
             }
 
             setError(data.message);
