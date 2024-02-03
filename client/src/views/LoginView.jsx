@@ -29,7 +29,7 @@ import {
     }
 
     const handleLoginPage = () => {
-      const uri = 'https://torium-systems.com';
+      const uri = 'https://torium-systems.com/auth/login';
 
       fetch(uri, {
         method: 'POST',
@@ -43,6 +43,7 @@ import {
         if(data.access_token){
           messageInstance.success(`Login succesful!`);
           window.location.href="/water";
+          return;
         }
           messageInstance.error(`Please try another credentials`);
         return;
@@ -68,6 +69,7 @@ import {
                     <Row style={{marginBottom: 15 }}>
                         <Typography.Text>Password:</Typography.Text>
                         <Input
+                        type="password"
                         value={password}
                         onChange={handlePassword}
                         placeholder="Enter your password"
