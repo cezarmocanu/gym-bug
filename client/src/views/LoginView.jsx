@@ -10,11 +10,10 @@ import {
   } from "antd";
   const { Header, Content } = Layout;
 
-export const LoginView = () => {
+export const LoginView = ({loginSuccess, setLoginSuccess}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-    const [loginSuccess, setLoginSuccess] = useState("");
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -35,11 +34,13 @@ export const LoginView = () => {
         })
         .then((data) => data.json())
         .then((data) => {
-            if (data.statusCode !== 200) {
-                setError(data.message);
-                return;
+            if (data.access_token) {
+            setLoginSuccess(true);
+            window.location.href="/water";
+            return;
             }
-            setLoginSuccess('Login succesfully');
+
+            setError(data.message);
             return;
         });
     };
