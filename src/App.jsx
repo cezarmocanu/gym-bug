@@ -6,7 +6,7 @@ import { MenuView } from "./views/MenuView";
 import { HomeView } from "./views/HomeView";
 import { CaloriesView } from "./views/CaloriesView";
 import {LoginView} from "./views/LoginView";
-import { useState } from "react";
+import { useState , useEffect } from "react";
 
 function App() {
   const [currentIntake, setCurrentIntake] = useState(0);

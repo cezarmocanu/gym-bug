@@ -1,14 +1,18 @@
 import { useState } from "react";
 import {
-    Button,
-    Layout,
-    Input,
-    Row,
-    Col,
-    Card,
-    Typography,
+  message,
+  Button,
+  Input,
+  Layout,
+  Typography,
+  Empty,
+  Row,
+  Col,
+  Card,
+  Tooltip,
   } from "antd";
   const { Header, Content } = Layout;
+  const { useMessage } = message;
 
   export const LoginView = () => {
     const [messageInstance, messageContext] = useMessage();
@@ -28,7 +32,7 @@ import {
       const uri = 'https://torium-systems.com';
 
       fetch(uri, {
-        method:POST,
+        method: 'POST',
         headers:{
           'Content-Type': 'application/json',
         },
@@ -36,21 +40,20 @@ import {
       })
       .then((data) => data.json())
       .then((data) => {
-        if(data.statusCode !== 200){
-          messageInstance.error(`Please try another email`);
-          return;
+        if(data.access_token){
+          messageInstance.success(`Login succesful!`);
+          window.location.href="/water";
         }
-        messageInstance.succes(`Login succesful!`);
+          messageInstance.error(`Please try another credentials`);
         return;
       });
     };
 
     return(
       <Layout  style={{ height: "100vh", overflow: "auto" }}>
+        {messageContext}
         <Header style={{ color: "white" }}>Login Tracking</Header>
-            <Content
-        style={{ display: "flex", flexDirection: "column", padding: "1rem" }}
-            >
+            <Content style={{ display: "flex", flexDirection: "column", padding: "1rem" }}>
             <Row gutter={16}>
                  <Col span={10} >
                     <Card title="Login page" style={{ minHeight: 140 }}> 
@@ -75,10 +78,10 @@ import {
                     </Row>
                     <Row>
                         <Typography.Text style={{color: 'red'}}>
-                            {error}
+                            {messageInstance.error}
                         </Typography.Text>
                         <Typography.Text style={{color: 'green'}}>
-                            {succes}
+                            {messageInstance.success}
                         </Typography.Text>
                     </Row>
                     </Card>
