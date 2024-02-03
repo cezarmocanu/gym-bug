@@ -2,6 +2,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
 import { ActivityTrackingView } from "./views/ActivityTrackingView";
 import { WaterTrackingView } from "./views/WaterTrackingView";
+import { LoginView} from "./views/LoginView";
 import { MenuView } from "./views/MenuView";
 import { HomeView } from "./views/HomeView";
 import { CaloriesView } from "./views/CaloriesView";
@@ -35,6 +36,7 @@ function App() {
             }
           />
           <Route path="/calories" element={<CaloriesView />} />
+          <Route path="/login" element={<LoginView />} />
         </Route>
       </Routes>
     </Router>
