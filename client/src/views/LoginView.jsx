@@ -65,6 +65,7 @@ export const LoginView = ({loginSuccess, setLoginSuccess}) => {
                     <Row style={{marginBottom: 15 }}>
                         <Typography.Text>Password:</Typography.Text>
                         <Input
+                        type="password"
                         value={password}
                         onChange={handlePasswordChange}
                         placeholder="Enter your password"
